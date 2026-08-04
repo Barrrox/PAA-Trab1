@@ -160,10 +160,10 @@ def FB3(capacidade: int, itens: list[int], valores: list[int], pesos: list[int],
     tam_a = meio
     tam_b = n - meio
 
-    # ── Fase 1: Enumerar todos os subsets de B, armazenando apenas a máscara ──
-    # Cada entrada: (peso_total, valor_total, máscara_inteira)
-    # A máscara codifica quais itens de B estão incluídos (bit j = item meio+j)
-    print(f"    [1/3] Enumerando {1 << tam_b:,} subsets da Metade B (itens {meio}..{n-1})...")
+    # # ── Fase 1: Enumerar todos os subsets de B, armazenando apenas a máscara ──
+    # # Cada entrada: (peso_total, valor_total, máscara_inteira)
+    # # A máscara codifica quais itens de B estão incluídos (bit j = item meio+j)
+    # print(f"    [1/3] Enumerando {1 << tam_b:,} subsets da Metade B (itens {meio}..{n-1})...")
     b_data = []
 
     for mask in range(1 << tam_b):      # itera por todas as 2^tam_b combinações
@@ -190,7 +190,7 @@ def FB3(capacidade: int, itens: list[int], valores: list[int], pesos: list[int],
     #   masks_max_B[i]: máscara do subset de B que atingiu max_vals_B[i]
     # Isso permite, dado um peso_restante, encontrar o melhor complemento
     # de B em O(log n) via busca binária.
-    print(f"    [2/3] Construindo envelope sobre {len(b_data):,} subsets válidos de B...")
+    # print(f"    [2/3] Construindo envelope sobre {len(b_data):,} subsets válidos de B...")
     pesos_B     = []
     max_vals_B  = []
     masks_max_B = []
@@ -212,7 +212,7 @@ def FB3(capacidade: int, itens: list[int], valores: list[int], pesos: list[int],
     # ── Fase 3: Enumerar A on-the-fly e combinar com envelope de B ────────────
     # Subsets de A são gerados um a um: nenhum fica armazenado em memória.
     # Para cada subset de A, a busca binária encontra o melhor complemento de B.
-    print(f"    [3/3] Enumerando {1 << tam_a:,} subsets da Metade A (itens 0..{meio-1}) e combinando...")
+    # print(f"    [3/3] Enumerando {1 << tam_a:,} subsets da Metade A (itens 0..{meio-1}) e combinando...")
 
     melhor_valor      = 0
     best_mask_a       = 0  # máscara de A da melhor solução encontrada
@@ -318,13 +318,13 @@ def FB4(capacidade: int, itens: list[int], valores: list[int], pesos: list[int],
         return subsets
 
     # ── Fase 1: Enumerar B com poda ───────────────────────────────────────────
-    print(f"    [1/3] Enumerando Metade B (itens {meio}..{n-1}) com poda...")
+    # print(f"    [1/3] Enumerando Metade B (itens {meio}..{n-1}) com poda...")
     b_data = enumerar_com_poda(meio, n)
     b_data.sort()  # ordena por peso para permitir busca binária
 
     # ── Fase 2: Construir envelope de valor máximo sobre B ordenado ───────────
     # Idêntico ao FB3: max_vals_B[i] = melhor valor em B com peso <= pesos_B[i]
-    print(f"    [2/3] Construindo envelope sobre {len(b_data):,} subsets válidos de B...")
+    # print(f"    [2/3] Construindo envelope sobre {len(b_data):,} subsets válidos de B...")
     pesos_B     = []
     max_vals_B  = []
     masks_max_B = []
@@ -345,7 +345,7 @@ def FB4(capacidade: int, itens: list[int], valores: list[int], pesos: list[int],
     # ── Fase 3: Enumerar A com poda e combinar via busca binária ─────────────
     # A é enumerada com backtracking (poda) e cada subset válido é imediatamente
     # combinado com o envelope de B. Nenhum subset de A fica armazenado.
-    print(f"    [3/3] Enumerando Metade A (itens 0..{meio-1}) com poda e combinando...")
+    # print(f"    [3/3] Enumerando Metade A (itens 0..{meio-1}) com poda e combinando...")
 
     melhor_valor      = 0
     best_mask_a       = 0
