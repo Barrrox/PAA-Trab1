@@ -7,7 +7,7 @@ def listar_caminhos_dos_arquivos(pasta_input: str = "./input") -> list[str]:
     Se a pasta não existir, retorna uma lista vazia.
     """
 
-    ordem_execucao = [10,12,14,16,20,50,100,200,300,500,750,1000,1250,1500,2000,2500,3000,4000,5000]
+    ordem_execucao = [10,12,14,16,20,30,40,50,100,200,300,500,750,1000,1250,1500,2000,2500,3000,4000,5000]
 
     caminho_pasta = Path(pasta_input)
 

@@ -1,4 +1,6 @@
 from time import perf_counter
+import matplotlib
+matplotlib.use('Agg')  # backend sem GUI — renderiza direto em arquivo, sem abrir janela
 import matplotlib.pyplot as plt
 from EstrategiaGulosa import BinGreedy
 from ForcaBruta import FB, FB2, FB3, FB4
@@ -32,12 +34,12 @@ def main():
 
     # Ler caminhos
     caminhos = listar_caminhos_dos_arquivos()
-    caminhos = [caminhos[i] for i in range(5)]
-    #print(caminhos)
+    # caminhos = [caminhos[i] for i in range(7)]
+    print(caminhos)
 
-    ordem_execucao = [10,12,14,16,20,50,100,200,300,500,750,1000,1250,1500,2000,2500,3000,4000,5000]
+    ordem_execucao = [10,12,14,16,20,30,40,50,100,200,300,500,750,1000,1250,1500,2000,2500,3000,4000,5000]
 
-    algoritmos = [FB3, FB4, BinGreedy]
+    algoritmos = [BinGreedy]
     # algoritmos = [FB3]
 
     # Dicionário: nome_algoritmo -> lista de tempos médios (um por instância)
@@ -76,7 +78,7 @@ def main():
                     tempo_total += fim - inicio
 
             # Calcula e guarda a média das iteracoes execuções restantes
-            duracao_media = tempo_total / (iteracoes - 1)
+            duracao_media = tempo_total / (iteracoes - 1) # -1 por causa da iteração descartada
             medias[algoritmo.__name__].append(duracao_media)
             print(f"    Tempo : {duracao_media}s\n")
 
@@ -108,6 +110,10 @@ def main():
 
     plt.yscale('log')
     plt.savefig('tamanho_x_tempo_log.png')
+
+    print("\nGráficos salvos em:")
+    print("  tamanho_x_tempo.png")
+    print("  tamanho_x_tempo_log.png")
 
 
 if __name__ == "__main__":
