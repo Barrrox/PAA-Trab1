@@ -1,8 +1,7 @@
-from time import time
 from time import perf_counter
 import matplotlib.pyplot as plt
 from EstrategiaGulosa import BinGreedy
-from ForcaBruta import FB
+from ForcaBruta import FB, FB2, FB3, FB4
 from utils import listar_caminhos_dos_arquivos
 
 
@@ -33,34 +32,31 @@ def main():
 
     # Ler caminhos
     caminhos = listar_caminhos_dos_arquivos()
-    caminhos = [caminhos[i] for i in range(6)]
+    caminhos = [caminhos[i] for i in range(5)]
     #print(caminhos)
-
-    medias_FB = []
-    medias_BinGreedy = []
 
     ordem_execucao = [10,12,14,16,20,50,100,200,300,500,750,1000,1250,1500,2000,2500,3000,4000,5000]
 
+    algoritmos = [FB3, FB4, BinGreedy]
+    # algoritmos = [FB3]
 
-    for caminho in caminhos:# Para cada instancia do problema       
+    # Dicionário: nome_algoritmo -> lista de tempos médios (um por instância)
+    medias = {alg.__name__: [] for alg in algoritmos}
 
-        # Le a instancia. 
+    for caminho in caminhos: # Para cada instancia do problema
+
+        # Le a instancia.
         instancia = ler_entrada(caminho)
 
-        caminho = caminho.removeprefix("input\\")
-        print(f"\nProblema : {caminho}") 
+        nome_caminho = caminho.removeprefix("input\\")
+        print(f"\nProblema : {nome_caminho}")
 
-        
-
-        duracao_media_FB = 0
-        duracao_media_BinGreedy = 0
-
-        # Le arquivo da instancia
-        for algoritmo in [FB, BinGreedy]:# Para cada algoritmo
-            print(f"    Algoritmo : {algoritmo.__name__}") 
+        for algoritmo in algoritmos: # Para cada algoritmo
+            print(f"    Algoritmo : {algoritmo.__name__}")
 
             tempo_total = 0
-            for i in range(6):
+            iteracoes = 6
+            for i in range(iteracoes):
 
                 # Instancia para cada iteração, pois os vetores são alterados internamente
                 capacidade_maxima = instancia[0]
@@ -68,7 +64,7 @@ def main():
                 pesos = instancia[2].copy()
                 itens = [x for x in range(len(valores))]
 
-                inicio = perf_counter() 
+                inicio = perf_counter()
                 retorno = algoritmo(capacidade=capacidade_maxima,
                           valores=valores,
                           pesos=pesos,
@@ -76,48 +72,42 @@ def main():
                           n=len(valores))
                 fim = perf_counter()
 
-                # print(caminho)
-                # print(capacidade_maxima)
-                # print(retorno[0])
-                # input()
-
-                if i != 0: # Descarta a primeira iteração (Espeficação do trabalho)
+                if i != 0: # Descarta a primeira iteração (Especificação do trabalho)
                     tempo_total += fim - inicio
 
-            # calcular media do tempo desta instância
-            if algoritmo == FB:
-                duracao_media_FB = tempo_total / 5
-                print(f"    Tempo : {duracao_media_FB}s\n")
-            else:
-                duracao_media_BinGreedy = tempo_total / 5
-                print(f"    Tempo : {duracao_media_BinGreedy}s\n")
+            # Calcula e guarda a média das iteracoes execuções restantes
+            duracao_media = tempo_total / (iteracoes - 1)
+            medias[algoritmo.__name__].append(duracao_media)
+            print(f"    Tempo : {duracao_media}s\n")
 
-        # guarda o tempo médio desta instância nas listas
-        medias_FB.append(duracao_media_FB)
-        medias_BinGreedy.append(duracao_media_BinGreedy)
+    # Tamanhos correspondentes às instâncias efetivamente processadas
+    n_instancias = len(medias[algoritmos[0].__name__])
+    tamanhos = ordem_execucao[:n_instancias]
 
-    # tamanhos correspondentes às instâncias efetivamente processadas
-    tamanhos = ordem_execucao[:len(medias_FB)]
+    # Plotar os graficos tamanho x tempo medio de execução
+    marcadores = ['o', 's', '^', 'D', 'v', 'P', '*', 'X']
 
-    # plotar os graficos tamanho x tempo medio de execução
     plt.figure(figsize=(10, 6))
 
-    plt.plot(tamanhos, medias_FB, marker='o', label='Força Bruta')
-    plt.plot(tamanhos, medias_BinGreedy, marker='s', label='Estratégia Gulosa')
-
+    for idx, algoritmo in enumerate(algoritmos):
+        nome = algoritmo.__name__
+        plt.plot(tamanhos, medias[nome],
+                 marker=marcadores[idx % len(marcadores)],
+                 label=nome)
 
     plt.xlabel('Tamanho da entrada (nº de itens)')
     plt.ylabel('Tempo médio de execução (s)')
     plt.title('Tamanho da entrada x Tempo médio de execução')
     plt.legend()
 
-
-    plt.yscale('log')
+    
     plt.grid(True, which='both', linestyle='--', alpha=0.5)
 
     plt.tight_layout()
     plt.savefig('tamanho_x_tempo.png')
-    plt.show()
+
+    plt.yscale('log')
+    plt.savefig('tamanho_x_tempo_log.png')
 
 
 if __name__ == "__main__":
