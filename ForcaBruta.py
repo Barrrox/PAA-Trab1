@@ -31,12 +31,16 @@ def FB(capacidade: int, itens: list[int], valores : list[int], pesos : list[int]
         # Verifica quais itens estão incluídos na combinação atual
         for j in range(n):
             if (i >> j) & 1: # Move os bits do i para direita em j posições e verifica se o bit menos significativo é 1
-                mochila_atual.append(itens[j]) # Adiciona o item à combinação atual
                 peso_atual += pesos[j] # Contabiliza o peso
+                
+                if peso_atual > capacidade:
+                    break
+                    
                 valor_atual += valores[j] # Contabiliza o valor
+                mochila_atual.append(itens[j]) # Adiciona o item à combinação atual
 
-        # Verifica se a combinação atual é válida e se é melhor que a melhor encontrada até agora
-        if peso_atual <= capacidade and valor_atual > melhor_valor:
+        # Verifica se a solução atual é melhor que a melhor encontrada até agora
+        if valor_atual > melhor_valor:
             melhor_valor = valor_atual
             melhor_mochila = mochila_atual
 
