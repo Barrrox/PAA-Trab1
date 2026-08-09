@@ -3,7 +3,7 @@ import matplotlib
 matplotlib.use('Agg')  # backend sem GUI — renderiza direto em arquivo, sem abrir janela
 import matplotlib.pyplot as plt
 from EstrategiaGulosa import BinGreedy
-from ForcaBruta import FB, FB2, FB3, FB4
+from ForcaBruta import FB
 from utils import listar_caminhos_dos_arquivos
 
 
@@ -39,8 +39,7 @@ def main():
 
     ordem_execucao = [10,12,14,16,20,30,40,50,100,200,300,500,750,1000,1250,1500,2000,2500,3000,4000,5000]
 
-    algoritmos = [BinGreedy]
-    # algoritmos = [FB3]
+    algoritmos = [BinGreedy, FB]
 
     # Dicionário: nome_algoritmo -> lista de tempos médios (um por instância)
     medias = {alg.__name__: [] for alg in algoritmos}
@@ -54,6 +53,11 @@ def main():
         print(f"\nProblema : {nome_caminho}")
 
         for algoritmo in algoritmos: # Para cada algoritmo
+
+            # Se tamanho da mochila maior que 30, pula a execução do FB
+            if algoritmo.__name__ == "FB" and len(instancia[1]) > 30:
+                continue
+
             print(f"    Algoritmo : {algoritmo.__name__}")
 
             tempo_total = 0
@@ -78,42 +82,60 @@ def main():
                     tempo_total += fim - inicio
 
             # Calcula e guarda a média das iteracoes execuções restantes
-            duracao_media = tempo_total / (iteracoes - 1) # -1 por causa da iteração descartada
+            duracao_media = tempo_total / (iteracoes - 1) * 1000 # -1 por causa da iteração descartada e multiplica por 1000 para converter para milissegundos
             medias[algoritmo.__name__].append(duracao_media)
-            print(f"    Tempo : {duracao_media}s\n")
+            print(f"    Tempo : {duracao_media}ms\n")
 
-    # Tamanhos correspondentes às instâncias efetivamente processadas
-    n_instancias = len(medias[algoritmos[0].__name__])
-    tamanhos = ordem_execucao[:n_instancias]
+    # Separa os tempos e tamanhos de cada algoritmo
+    tempos_BG = medias['BinGreedy']
+    tempos_FB = medias['FB'] 
+    
+    tamanhos_BG = ordem_execucao[:len(tempos_BG)]
+    tamanhos_FB = ordem_execucao[:len(tempos_FB)]
 
-    # Plotar os graficos tamanho x tempo medio de execução
-    marcadores = ['o', 's', '^', 'D', 'v', 'P', '*', 'X']
 
+    # Gráfico 1: Comparação BGxFB até a mochila 30
     plt.figure(figsize=(10, 6))
 
-    for idx, algoritmo in enumerate(algoritmos):
-        nome = algoritmo.__name__
-        plt.plot(tamanhos, medias[nome],
-                 marker=marcadores[idx % len(marcadores)],
-                 label=nome)
+    plt.plot(tamanhos_BG[:len(tamanhos_FB)], tempos_BG[:len(tempos_FB)], marker='o', label='BinGreedy')
+    plt.plot(tamanhos_FB, tempos_FB, marker='s', label='Força Bruta')
 
     plt.xlabel('Tamanho da entrada (nº de itens)')
-    plt.ylabel('Tempo médio de execução (s)')
-    plt.title('Tamanho da entrada x Tempo médio de execução')
+    plt.ylabel('Tempo médio de execução (ms)')
+    plt.title('Comparação: Estratégia Gulosa x Força Bruta')
     plt.legend()
-
-    
     plt.grid(True, which='both', linestyle='--', alpha=0.5)
-
     plt.tight_layout()
-    plt.savefig('tamanho_x_tempo.png')
-
+    plt.savefig('comparacao_BGxFB_ate_30.png')
     plt.yscale('log')
-    plt.savefig('tamanho_x_tempo_log.png')
+    plt.savefig('comparacao_BGxFB_ate_30_log.png')
+    plt.close()
+
+    # Gráfico 2: BG até a última mochila
+
+    plt.figure(figsize=(10, 6))
+    
+    plt.plot(tamanhos_BG, tempos_BG, marker='o', label='BinGreedy', color='blue')
+    
+    plt.xlabel('Tamanho da entrada (nº de itens)')
+    plt.ylabel('Tempo médio de execução (ms)')
+    plt.title('Estratégia Gulosa')
+    plt.legend()
+    plt.grid(True, which='both', linestyle='--', alpha=0.5)
+    plt.tight_layout()
+    
+    # Salva versão normal e logarítmica
+    plt.savefig('BG_completo.png')
+    plt.yscale('log')
+    plt.savefig('BG_completo_log.png')
+    plt.close()
+
 
     print("\nGráficos salvos em:")
-    print("  tamanho_x_tempo.png")
-    print("  tamanho_x_tempo_log.png")
+    print("  comparacao_BGxFB_ate_30.png")
+    print("  comparacao_BGxFB_ate_30_log.png")
+    print("  BG_completo.png")
+    print("  BG_completo_log.png")
 
 
 if __name__ == "__main__":
