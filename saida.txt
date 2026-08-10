@@ -1,0 +1,131 @@
+PS C:\Users\TCORP\Documents\Trab 1 PAA AF-JS-MB\PAA-Trab1> python .\main.py        
+['input\\Mochila10.txt', 'input\\Mochila12.txt', 'input\\Mochila14.txt', 'input\\Mochila16.txt', 'input\\Mochila20.txt', 'input\\Mochila30.txt', 'input\\Mochila40.txt', 'input\\Mochila50.txt', 'input\\Mochila100.txt', 'input\\Mochila200.txt', 'input\\Mochila300.txt', 'input\\Mochila500.txt', 'input\\Mochila750.txt', 'input\\Mochila1000.txt', 'input\\Mochila1250.txt', 'input\\Mochila1500.txt', 'input\\Mochila2000.txt', 'input\\Mochila2500.txt', 'input\\Mochila3000.txt', 'input\\Mochila4000.txt', 'input\\Mochila5000.txt']
+
+Problema : Mochila10.txt
+    Algoritmo : BinGreedy
+    Tempo : 0.004299999909562757ms
+
+    Algoritmo : FB
+    Tempo : 0.5236799999693176ms
+
+
+Problema : Mochila12.txt
+    Algoritmo : BinGreedy
+    Tempo : 0.005379999947763281ms
+
+    Algoritmo : FB
+    Tempo : 2.597260000038659ms
+
+
+Problema : Mochila14.txt
+    Algoritmo : BinGreedy
+    Tempo : 0.008940000043367036ms
+
+    Algoritmo : FB
+    Tempo : 10.502980000092066ms
+
+
+Problema : Mochila16.txt
+    Algoritmo : BinGreedy
+    Tempo : 0.005980000059935264ms
+
+    Algoritmo : FB
+    Tempo : 46.79565999995248ms
+
+
+Problema : Mochila20.txt
+    Algoritmo : BinGreedy
+    Tempo : 0.011500000073283445ms
+
+    Algoritmo : FB
+    Tempo : 834.0204999998605ms
+
+
+Problema : Mochila30.txt
+    Algoritmo : BinGreedy
+    Tempo : 0.023180000152933644ms
+
+    Algoritmo : FB
+    Tempo : 1743347.02302ms
+
+
+Problema : Mochila40.txt
+    Algoritmo : BinGreedy
+    Tempo : 0.03775999975914601ms
+
+
+Problema : Mochila50.txt
+    Algoritmo : BinGreedy
+    Tempo : 0.05523999971046578ms
+
+
+Problema : Mochila100.txt
+    Algoritmo : BinGreedy
+    Tempo : 0.11510000003909227ms
+
+
+Problema : Mochila200.txt
+    Algoritmo : BinGreedy
+    Tempo : 0.9994000000006054ms
+
+
+Problema : Mochila300.txt
+    Algoritmo : BinGreedy
+    Tempo : 2.1682400001736823ms
+
+
+Problema : Mochila500.txt
+    Algoritmo : BinGreedy
+    Tempo : 6.0926000001927605ms
+
+
+Problema : Mochila750.txt
+    Algoritmo : BinGreedy
+    Tempo : 14.760899999237154ms
+
+
+Problema : Mochila1000.txt
+    Algoritmo : BinGreedy
+    Tempo : 9.649480000007316ms
+
+
+Problema : Mochila1250.txt
+    Algoritmo : BinGreedy
+    Tempo : 34.50418000029458ms
+
+
+Problema : Mochila1500.txt
+    Algoritmo : BinGreedy
+    Tempo : 31.219940000300994ms
+
+
+Problema : Mochila2000.txt
+    Algoritmo : BinGreedy
+    Tempo : 54.14278000025661ms
+
+
+Problema : Mochila2500.txt
+    Algoritmo : BinGreedy
+    Tempo : 34.26757999986876ms
+
+
+Problema : Mochila3000.txt
+    Algoritmo : BinGreedy
+    Tempo : 31.739060000109024ms
+
+
+Problema : Mochila4000.txt
+    Algoritmo : BinGreedy
+    Tempo : 174.1215400001238ms
+
+
+Problema : Mochila5000.txt
+    Algoritmo : BinGreedy
+    Tempo : 180.58256000003894ms
+
+
+Gráficos salvos em:
+  comparacao_BGxFB_ate_30.png
+  comparacao_BGxFB_ate_30_log.png
+  BG_completo.png
+  BG_completo_log.png
