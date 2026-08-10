@@ -9,24 +9,36 @@ Alunos:
 
 
 
+- Custo assintótico BinGreedy:
+126 - atrib+index+op = 3 * n
+127 - atrib = 1
+130 - atrib = 1
+133 - atrib = 1
+136 - atrib+index+op = 3 * n
+137 - laço = 2n + 2
+138 - 4*index+atrib+op+t.logico+op=8n (pior caso 7n)
+140 - atrib = 1
+143 - laço = 3n + 3
+146 - atrib = 1 * n
+147 - atrib = 1 * n
+149 - laço = (2n + 2) * n
+150 - t.logico+index = 2 * n * n
+151 - atrib + index = 2 * n * n
+152 - atrib = 1 * n * n
+155 - t.logico = 1 * n
+156 - op = 1 (pior caso isso nunca acontece)
+159 - t.logico+index+op = 3 * n
+161 - 2*index+atrib = 3 * n
+162 - soma+atrib = 2 * n
+165 - soma+atrib+index = 3 * n
+168 - soma+atrib+index = 3 * n
+172 - index+atrib = 2 * n
+173 - soma+atrib = 2 * n
+176 - retorno+index = 2
 
+T(n) = 7n^2 + 42n + 11
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+O(n^2)
 
 
 
