@@ -1,68 +1,35 @@
-# Trabalho 1 PAA
+# Trabalho 1 - Projeto e Análise de Algoritmos (PAA) 2026
 
-Alunos:
+## Equipe 5
 - André Gustavo Franco
 - João Vitor da Silva
 - Matheus Barros
 
+## 1. Descrição do Projeto
+Este repositório contém a implementação e análise de desempenho de duas abordagens distintas para solucionar o **Problema da Mochila Binária**. O objetivo principal é comparar os tempos de execução cronológicos e a complexidade assintótica teórica dos algoritmos propostos.
 
+## 2. Estratégias Implementadas
 
+### Estratégia Gulosa (BinGreedy)
+- **Funcionamento:** O algoritmo avalia iterativamente a melhor razão custo-benefício (valor/peso) para cada item e os adiciona à mochila enquanto houver capacidade disponível, descartando os demais itens.
+- **Complexidade Assintótica:** O pior caso possui custo `O(n²)`, possuindo o polinômio `T(n) = 7n² + 42n + 11`.
 
+### Força Bruta (FB)
+Uma abordagem exata que testa todas as combinações possíveis para encontrar a solução ótima global.
+- **Funcionamento:** Utiliza operações bit a bit para iterar pelas `2^n` combinações diferentes de itens, calculando o peso total e avaliando se a combinação atual gera o maior benefício sem extrapolar a capacidade da mochila.
+- **Complexidade Assintótica:** O pior caso possui comportamento exponencial `O(n * 2^n)`, com polinômio `T(n) = 2^n(13n + 11) + 4`.
 
-- Custo assintótico BinGreedy:
-126 - atrib+index+op = 3 * n
-127 - atrib = 1
-130 - atrib = 1
-133 - atrib = 1
-136 - atrib+index+op = 3 * n
-137 - laço = 2n + 2
-138 - 4*index+atrib+op+t.logico+op=8n (pior caso 7n)
-140 - atrib = 1
-143 - laço = 3n + 3
-146 - atrib = 1 * n
-147 - atrib = 1 * n
-149 - laço = (2n + 2) * n
-150 - t.logico+index = 2 * n * n
-151 - atrib + index = 2 * n * n
-152 - atrib = 1 * n * n
-155 - t.logico = 1 * n
-156 - op = 1 (pior caso isso nunca acontece)
-159 - t.logico+index+op = 3 * n
-161 - 2*index+atrib = 3 * n
-162 - soma+atrib = 2 * n
-165 - soma+atrib+index = 3 * n
-168 - soma+atrib+index = 3 * n
-172 - index+atrib = 2 * n
-173 - soma+atrib = 2 * n
-176 - retorno+index = 2
+## 3. Como Executar
 
-T(n) = 7n^2 + 42n + 11
-
-O(n^2)
-
-
-
-
-
-- Custo assintótico FB:
-12 - atrib = 1
-13 - atrib = 1
-17 - laço = 3 * 2^n + 2
-22 - atrib = 1 * 2^n
-23 - atrib = 1 * 2^n
-24 - atrib = 1 * 2^n
-27 - laço = (2n + 2) * 2^n
-28 - t.logico = 2 * n * 2^n
-29 - soma+atrib+index = 3 * n * 2^n
-32 - t.logico = 1 * n * 2^n
-33 - op = 1 (pior caso isso nunca acontece)
-35 - soma+atrib+index = 3 * n * 2^n
-36 - op+index = 2 * n * 2^n
-39 - t.logico = 1 * 2^n
-40 - atrib = 1 * 2^n (pior caso isso sempre acontece)
-41 - atrib = 1 * 2^n (pior caso isso sempre acontece)
-
-T(n) = 13n * 2^n + 11 * 2^n + 4
-T(n) = 2^n(13n + 11) + 4
-
-O(n * 2^n)
+**Pré-requisitos:**
+- Python 3.x instalado.
+- Biblioteca `matplotlib` para a geração dos gráficos (instalar via `pip install matplotlib`).
+- Na raiz do projeto (onde se encontra o script `main.py`), execute:
+```bash
+python main.py > saida.txt
+```
+O script se encarregará de:
+1. Listar as instâncias presentes na pasta `input/`.
+2. Executar e tomar os tempos via `perf_counter` de ambos os algoritmos.
+3. Imprimir o log de tempos na saida especificada.
+4. Salvar os gráficos `comparacao_BGxFB_ate_30.png`, `comparacao_BGxFB_ate_30_log.png`, `BG_completo.png` e `BG_completo_log.png`.

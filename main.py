@@ -34,7 +34,6 @@ def main():
 
     # Ler caminhos
     caminhos = listar_caminhos_dos_arquivos()
-    # caminhos = [caminhos[i] for i in range(7)]
     print(caminhos)
 
     ordem_execucao = [10,12,14,16,20,30,40,50,100,200,300,500,750,1000,1250,1500,2000,2500,3000,4000,5000]
@@ -112,7 +111,6 @@ def main():
     plt.close()
 
     # Gráfico 2: BG até a última mochila
-
     plt.figure(figsize=(10, 6))
     
     plt.plot(tamanhos_BG, tempos_BG, marker='o', label='BinGreedy', color='blue')
